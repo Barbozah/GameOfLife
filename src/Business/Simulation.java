@@ -219,6 +219,10 @@ public class Simulation implements Runnable {
 	public Cell[][] getCellgrid() {
 		return cellgrid;
 	}
+	
+	public Cell getCell(int x, int y) {
+		return cellgrid[y][x];
+	}
 
 	public void setCellgrid(Cell[][] cellgrid) {
 		this.cellgrid = cellgrid;

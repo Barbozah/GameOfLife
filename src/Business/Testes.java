@@ -1,5 +1,7 @@
 package Business;
 
+import Gui.MainFrame;
+
 public class Testes {
 	
 	public static void show(Cell[] gridcells) {
@@ -17,6 +19,8 @@ public class Testes {
 
 	public static void main(String[] args) throws InterruptedException{
 		
+		new MainFrame();
+		/*
 		Simulation sim = new Simulation(20, 60);
 		Player p = new Player(Player.CURSOR_LIVE, 0);
 		
@@ -31,7 +35,7 @@ public class Testes {
 		sim.mutation(p, 10, 6);
 		
 		sim.play();
-		
+		*/
 	}
 
 }

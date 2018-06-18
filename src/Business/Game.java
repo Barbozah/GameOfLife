@@ -9,6 +9,11 @@ public class Game {
 	private Simulation simCurrent;
 	private Player simPlayer;
 	
+	public Game() {
+		setSimCurrent(new Simulation(50, 50));
+		setSimPlayer(new Player());
+	}
+	
 	public Game(Simulation simCurrent, Player simPlayer){
 		setSimCurrent(simCurrent);
 		setSimPlayer(simPlayer);
