@@ -1,14 +1,11 @@
 package Business;
 
-import java.io.Serializable;
-
 /**
  * Classe representativa de cada célula do automato.
  * @author Antonio
  */
-public class Cell implements Serializable {
+public class Cell {
 	
-	private static final long serialVersionUID = 1L;
 	private boolean alive;
 	private int neighbors;
 	

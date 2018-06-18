@@ -22,51 +22,6 @@ public class Simulation implements Runnable {
 	private Cell[][] buffer;
 	private Backup archive;
 	
-	public class Upgrade implements Runnable {
-		
-		private int x, y;
-		
-		public Upgrade(int x, int y) {
-			this.x = x;
-			this.y = y;
-		}
-
-		@Override
-		public void run() {
-			
-			for(int i=y-1;i<=y+1;i++) {
-				for(int j=x-1;j<=x+1;j++) {
-					if(i==y && j==x || i < 0 || i >= rows-1 || j < 0 || j >= columns-1) {
-						continue;
-					}
-					if(cellgrid[i][j].isAlive()) {
-						cellgrid[y][x].addNeighbor();
-					}
-				}
-			}
-			
-			int neighbors = cellgrid[y][x].getNeighbors();
-			boolean isAlive = cellgrid[y][x].isAlive();
-			boolean alive = false;
-			
-			if(neighbors > 3 || neighbors < 2) {
-				alive = false;
-			}
-			
-			if(isAlive == false && neighbors == 3) {
-				alive = true;
-			}
-			
-			if(isAlive && ((neighbors == 2 )||(neighbors == 3))) {
-				alive = isAlive;
-			}
-			
-			buffer[y][x] = new Cell(alive, 0);
-			count++;
-		}
-		
-	}
-	
 	/**
 	 * Construtor responsável por iniciar as variáveis com valor default
 	 */
@@ -92,6 +47,45 @@ public class Simulation implements Runnable {
 	}
 	
 	/**
+	 * Método responsável por atualizar um índice dentro da matriz em questão
+	 * 
+	 * @param x coordenada, do eixo das abcissas, da célula que deve ser atualizada
+	 * @param y coordenada, do eixo das ordenadas, da célula que deve ser atualizada
+	 */
+	public void update(int x, int y) {
+		
+		for(int i=y-1;i<=y+1;i++) {
+			for(int j=x-1;j<=x+1;j++) {
+				if(i==y && j==x || i < 0 || i >= rows-1 || j < 0 || j >= columns-1) {
+					continue;
+				}
+				if(cellgrid[i][j].isAlive()) {
+					cellgrid[y][x].addNeighbor();
+				}
+			}
+		}
+		
+		int neighbors = cellgrid[y][x].getNeighbors();
+		boolean isAlive = cellgrid[y][x].isAlive();
+		boolean alive = false;
+		
+		if(neighbors > 3 || neighbors < 2) {
+			alive = false;
+		}
+		
+		if(isAlive == false && neighbors == 3) {
+			alive = true;
+		}
+		
+		if(isAlive && ((neighbors == 2 )||(neighbors == 3))) {
+			alive = isAlive;
+		}
+		
+		buffer[y][x] = new Cell(alive, 0);
+		count++;
+	}
+	
+	/**
 	 * Método responsável por atualizar a geração
 	 * Ainda em desenvolvimento
 	 */
@@ -101,7 +95,8 @@ public class Simulation implements Runnable {
 		for(int i=0;i<rows;i++) {
 			for(int j=0;j<columns;j++) {
 				//new Thread(new Upgrade(j, i)).start();
-				new Upgrade(j, i).run();
+				//new Upgrade(j, i).run();
+				update(j, i);
 			}
 		}
 		while(count < rows*columns-1) {}
