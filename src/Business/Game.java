@@ -7,32 +7,30 @@ package Business;
 public class Game {
 	
 	private Simulation simCurrent;
-	private Player simPlayer;
+	private Player playerCurrent;
+	private static Game instance;
 	
 	public Game() {
-		setSimCurrent(new Simulation(50, 50));
-		setSimPlayer(new Player());
+		this.simCurrent = new SimpleSimulation(50, 50);
+		this.playerCurrent = new Player();
 	}
 	
-	public Game(Simulation simCurrent, Player simPlayer){
-		setSimCurrent(simCurrent);
-		setSimPlayer(simPlayer);
+	public static Game getInstance() {
+		if(Game.instance == null) {
+			Game.instance = new Game();
+		}
+		return Game.instance;
 	}
 	
 	public void action(int x, int y) {
-		simCurrent.mutation(simPlayer, x, y);
+		simCurrent.mutation(playerCurrent.getCursorBehavior(), x, y);
 	}
 	
 	public Simulation getSimCurrent() {
 		return simCurrent;
 	}
-	public void setSimCurrent(Simulation simCurrent) {
-		this.simCurrent = simCurrent;
-	}
-	public Player getSimPlayer() {
-		return simPlayer;
-	}
-	public void setSimPlayer(Player simPlayer) {
-		this.simPlayer = simPlayer;
+	
+	public Player getPlayerCurrent() {
+		return playerCurrent;
 	}
 }

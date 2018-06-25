@@ -4,24 +4,92 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import Business.Game;
 import Business.Simulation;
+import Business.SimpleSimulation;
+import javax.swing.JSlider;
 
-public class SimulationPanel extends JPanel{
+public class SimulationPanel extends JPanel {
 	
 	private static final long serialVersionUID = 1L;
 	private Simulation sim;
+	private boolean paused;
 	private int cellSide;
+	private JLabel timer;
+	private JLabel generation;
+	private JLabel velocity;
+	private JSlider slider;
+	private JButton pauseButton;
 	
-	public SimulationPanel(Simulation sim) {
+	public SimulationPanel() {
 		
+		setLayout(null);
 		setBackground(Color.GRAY);
-		this.sim = sim;
+		
+		this.sim = Game.getInstance().getSimCurrent();
 		setCellSide(10);
+		
+		paused = false;
+		pauseButton = new JButton("Pause");
+		pauseButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				
+			}
+		});
+		pauseButton.setFocusable(false);
+		pauseButton.setBounds(sim.getCellControl().getColumns()*10+10, 130, 100, 20);
+		add(pauseButton);
+		
+		timer = new JLabel();
+		timer.setBounds(sim.getCellControl().getColumns()*10+10, 0, 100, 40);
+		add(timer);
+		
+		generation = new JLabel();
+		generation.setBounds(sim.getCellControl().getColumns()*10+10, 30, 200, 40);
+		add(generation);
+		
+		velocity = new JLabel();
+		velocity.setBounds(sim.getCellControl().getColumns()*10+10, 60, 100, 40);
+		add(velocity);
+		
+		slider = new JSlider();
+		slider.setBounds(sim.getCellControl().getColumns()*10+10, 100, 100, 20);
+		slider.setMaximum((int) Simulation.MAX_VELOCITY);
+		slider.setMinimum(1);
+		slider.setValue((int) (Simulation.MAX_VELOCITY/2));
+		slider.setBackground(Color.LIGHT_GRAY);
+		add(slider);
+		
 		repaint();
 		
+	}
+	
+	public void run() {
+		sim.getRuntime().play();
+		while(!paused) {
+			timer.setText("Time: " + sim.getRuntime().getTime());
+			generation.setText("Generation: " + sim.getGeneration());
+			velocity.setText("Velocity: " + (Simulation.MAX_VELOCITY - sim.getVelocity())/10
+											+ "%");
+			repaint();
+			sim.evolution();
+			sim.setVelocity(slider.getValue());
+			try {
+				Thread.sleep(sim.getVelocity());
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 	
 	public void setCellSide(int cellSide) {
@@ -38,9 +106,9 @@ public class SimulationPanel extends JPanel{
 		BasicStroke bs = new BasicStroke(1.0f);
 		g2d.setStroke(bs);
 		
-		for(int i=0;i<sim.getRows();i++) {
-			for(int j=0;j<sim.getColumns();j++) {
-				if(sim.getCell(j, i).isAlive()) {
+		for(int i=0;i<sim.getCellControl().getRows();i++) {
+			for(int j=0;j<sim.getCellControl().getColumns();j++) {
+				if(sim.getCellControl().isAlive(j, i)) {
 					g2d.setColor(Color.BLACK);
 					g2d.fillRect(j*cellSide, i*cellSide, cellSide, cellSide);
 					g2d.setColor(Color.LIGHT_GRAY);
@@ -51,5 +119,4 @@ public class SimulationPanel extends JPanel{
 		}
 		
 	}
-	
 }

@@ -13,13 +13,13 @@ public class MainFrame extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(800, 600);
 		
-		Game g = new Game();
+		Game.getInstance().action(4, 3);
+		Game.getInstance().action(5, 3);
+		Game.getInstance().action(6, 3);
 		
-		g.action(4, 3);
-		g.action(5, 3);
-		g.action(6, 3);
-		
-		setContentPane(new SimulationPanel(g.getSimCurrent()));
+		SimulationPanel simP = new SimulationPanel();
+		setContentPane(simP);
+		simP.run();
 	}
 	
 }
