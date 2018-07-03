@@ -1,6 +1,6 @@
 package Persistence;
 
-import Business.Cell;
+import Business.CellControl;
 
 public class Backup {
 	
@@ -8,12 +8,12 @@ public class Backup {
 		
 	}
 	
-	public void save(Cell[][] cell) {
+	public void save(CellControl cell) {
 		
 		
 	}
 	
-	public Cell[][] restore() {
+	public CellControl restore() {
 		return null;
 	}
 }
