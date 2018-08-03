@@ -61,41 +61,37 @@ public interface SimulationControl {
 	public Stopwatch getRuntime();
 	
 	/**
-	 * 
-	 * @return
+	 * @return Retorna o repositório de células atual da simulação
 	 */
 	public CellRepositoryControl getCellControl();
 	
 	/**
-	 * 
-	 * @param cellControl
+	 * @param cellControl Define o reposítorio de células
 	 */
 	public void setCellControl(CellRepositoryControl cellControl);
 	
 	/**
-	 * 
-	 * @return
+	 * @return Status da simulação
 	 */
 	public boolean isPaused();
 	
 	/**
-	 * 
+	 * Pausa a simulação
 	 */
 	public void pause();
 	
 	/**
-	 * 
+	 * Retoma a simulação
 	 */
 	public void play();
 	
 	/**
-	 * 
+	 * @return Status do cursor
 	 */
 	public boolean getCursorBehavior();
 	
 	/**
-	 * 
-	 * @param behavior
+	 * @param behavior Define o status do cursor
 	 */
 	public void setCursorBehavior(boolean behavior);
 }

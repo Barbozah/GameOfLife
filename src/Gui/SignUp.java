@@ -1,7 +1,6 @@
 package Gui;
 
 import java.awt.Color;
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -21,6 +20,10 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.ActionEvent;
 
+/**
+ * Frame que captura o login do usuário e cadastrá-o.
+ * @author Antonio
+ */
 public class SignUp extends JFrame {
 
 	private static final long serialVersionUID = 1L;
@@ -29,27 +32,7 @@ public class SignUp extends JFrame {
 	private JPasswordField passwordField;
 	private JButton btnConfirm;
 	private JButton btnCancel;
-	
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					SignUp frame = new SignUp();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
 	public SignUp() {
 		setBounds(100, 100, 1300, 700);
 		setExtendedState(JFrame.MAXIMIZED_BOTH);

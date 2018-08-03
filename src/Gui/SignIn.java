@@ -1,7 +1,6 @@
 package Gui;
 
 import java.awt.Color;
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -31,6 +30,11 @@ import java.io.File;
 import java.io.IOException;
 import java.awt.event.ActionEvent;
 
+/**
+ * Frame que captura o login do usuario e iniciar uma simulação. 
+ * Caso o usuário não esteja cadastrado, pede o local de um arquivo salvo com o usuário.
+ * @author Antonio
+ */
 public class SignIn extends JFrame {
 
 	private static final long serialVersionUID = 1L;
@@ -43,25 +47,6 @@ public class SignIn extends JFrame {
 	private JComboBox<String> comboBoxSelect;
 	private JButton btnComboConfirm;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					SignIn frame = new SignIn();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
 	public SignIn() {
 		setBounds(100, 100, 1300, 700);
 		setExtendedState(JFrame.MAXIMIZED_BOTH);

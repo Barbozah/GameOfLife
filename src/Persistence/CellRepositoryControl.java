@@ -57,7 +57,7 @@ public interface CellRepositoryControl extends Serializable{
 	public void addCell(int x, int y, boolean alive, int neighbors) throws CellNotInstantiatedException;
 	
 	/**
-	 * Destroy uma célula instanciada
+	 * Destroi uma célula instanciada
 	 * @param x (coordenada x da célula)
 	 * @param y (coordenada y da célula) 
 	 */
@@ -93,53 +93,51 @@ public interface CellRepositoryControl extends Serializable{
 	 */
 	public boolean isAlive(int x, int y) throws CellNotInstantiatedException;
 	
+	/**
+	 * @return Data e hora da criação do repositorio
+	 */
 	public String createdIn();
 	
 	/**
-	 * 
-	 * @param rows
-	 * @param columns
+	 * Redefine as dimenções da matriz de células
+	 * @param rows Quantidade de linhas
+	 * @param columns Quantidade de colunas
 	 */
 	public void setDimention(int rows, int columns);
 	
 	/**
-	 * 
-	 * @param scale
+	 * Redefine as dimenções para uma escala que preencha a tela
+	 * @param scale Tamanho do lado de cada célula
 	 */
 	public void setIdealDimention(int scale);
 	
-	/**
-	 * 
-	 * @return
+	/** 
+	 * @return Quantidade de linhas
 	 */
 	public int getRows();
 
 	/**
-	 * 
-	 * @return
+	 * @return Quantidade de colunas
 	 */
 	public int getColumns();
 	
 	/**
-	 * 
-	 * @return
+	 * @return Nova instancia do repositorio com as mesmas dimensões da instância atual
 	 */
 	public CellRepositoryControl specialInstance();
 	
 	/**
-	 * 
+	 * Reinicar o iterador das células observadas
 	 */
 	public void resetIterator();
 	
 	/**
-	 * 
-	 * @return
+	 * @return Se ainda há celulas a serem vistas no iterador das células observadas
 	 */
 	public boolean hasNext();
 	
 	/**
-	 * 
-	 * @return
+	 * @return Coordenadas da próxima célula a ser observada
 	 */
 	public Coordinate next();
 }

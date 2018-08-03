@@ -27,6 +27,10 @@ import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * Painel onde a simulação é excutada e ilustrada.
+ * @author Antonio
+ */
 public class SimulationPanel extends JPanel implements Runnable {
 	
 	private static final long serialVersionUID = 1L;
@@ -43,10 +47,7 @@ public class SimulationPanel extends JPanel implements Runnable {
 	private JLabel lblScale;
 	private JLabel lblBehavior;
 	private JButton btnSalvar;
-	private JButton btnSair;
-	/**
-	 * Create the panel.
-	 */
+	
 	public SimulationPanel() {
 		
 		this.sim = BusinessFacade.getInstance().getSimCurrent();
@@ -207,19 +208,6 @@ public class SimulationPanel extends JPanel implements Runnable {
 		btnSalvar.setFont(new Font("Tahoma", Font.PLAIN, 24));
 		btnSalvar.setBounds(47, 388, 153, 54);
 		panel.add(btnSalvar);
-		
-		btnSair = new JButton("Sair");
-		btnSair.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				setVisible(false);
-			}
-		});
-		btnSair.setFont(new Font("Tahoma", Font.PLAIN, 24));
-		btnSair.setBounds(47, 467, 153, 54);
-		panel.add(btnSair);
-		
 		repaint();
 	}
 	

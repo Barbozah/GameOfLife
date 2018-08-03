@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Classe que implementa o controle estático de células
+ * Classe que implementa o repositório de células em uma matriz
  * 
  * @author Antonio
  *
@@ -40,10 +40,19 @@ public class CellGrid implements CellRepositoryControl {
 		date = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy").format(new Date());
 	}
 
+	/**
+	 * Define a matriz de células
+	 * @param grid Matriz de células
+	 */
 	public void setGrid(Cell[][] grid) {
 		this.grid = grid;
 	}
 
+	/**
+	 * Define a matriz de células com quantidade de linhas e colunas
+	 * @param rows Quantidade de linhas
+	 * @param columns Quantidade de colunas
+	 */
 	public void setGrid(int rows, int columns) {
 		setGrid(new Cell[rows][columns]);
 	}
@@ -66,40 +75,39 @@ public class CellGrid implements CellRepositoryControl {
 	}
 
 	/**
-	 * 
-	 * @param x
-	 * @param y
-	 * @return
+	 * Procura uma célula na lista de células observadas
+	 * @return As coordenadas da célula
+	 * @throws CellNotInstantiatedException Caso a célula não foi encontrada
 	 */
-	public Coordinate searchAssets(int x, int y) {
+	public Coordinate searchAssets(int x, int y) throws CellNotInstantiatedException {
 		for (Coordinate coord : assets) {
 			if (coord.getX() == x && coord.getY() == y) {
 				return coord;
 			}
 		}
-		return null;
+		throw new CellNotInstantiatedException(x, y);
 	}
 
 	/**
-	 * 
-	 * @return
+	 * @return Lista de células observadas
 	 */
 	public List<Coordinate> assetsList() {
 		return assets;
 	}
 
 	/**
-	 * 
-	 * @param x
-	 * @param y
+	 * Adiciona uma célula na lista de observadas
+	 * @throws CellNotInstantiatedException Caso a célula não for encontrada
 	 */
-	public void addAsset(int x, int y) {
+	public void addAsset(int x, int y) throws CellNotInstantiatedException {
 		for (int i = y - 1; i <= y + 1; i++) {
 			for (int j = x - 1; j <= x + 1; j++) {
 				if (i < 0 || j < 0 || i >= rows || j >= columns) {
 					continue;
 				}
-				if (searchAssets(j, i) == null) {
+				try {
+					searchAssets(j, i);
+				}catch (Exception e) {
 					assets.add(new Coordinate(j, i));
 				}
 			}
@@ -107,11 +115,10 @@ public class CellGrid implements CellRepositoryControl {
 	}
 
 	/**
-	 * 
-	 * @param x
-	 * @param y
+	 * Remove uma célula da lista de observadas
+	 * @throws CellNotInstantiatedException 
 	 */
-	public void removeAsset(int x, int y) {
+	public void removeAsset(int x, int y) throws CellNotInstantiatedException {
 		assets.remove(searchAssets(x, y));
 	}
 
@@ -155,7 +162,7 @@ public class CellGrid implements CellRepositoryControl {
 	}
 
 	@Override
-	public void addCell(int x, int y, boolean alive, int neighbors) throws ArrayIndexOutOfBoundsException {
+	public void addCell(int x, int y, boolean alive, int neighbors) throws ArrayIndexOutOfBoundsException, CellNotInstantiatedException {
 		if (alive) {
 			addAsset(x, y);
 		}
@@ -163,19 +170,19 @@ public class CellGrid implements CellRepositoryControl {
 	}
 
 	@Override
-	public void removeCell(int x, int y) throws ArrayIndexOutOfBoundsException {
+	public void removeCell(int x, int y) throws ArrayIndexOutOfBoundsException, CellNotInstantiatedException {
 		assets.remove(searchAssets(x, y));
 		grid[y][x] = null;
 	}
 
 	@Override
-	public void killCell(int x, int y) throws ArrayIndexOutOfBoundsException {
+	public void killCell(int x, int y) throws ArrayIndexOutOfBoundsException, CellNotInstantiatedException {
 		assets.remove(searchAssets(x, y));
 		grid[y][x].setAlive(false);
 	}
 
 	@Override
-	public void liveCell(int x, int y) throws ArrayIndexOutOfBoundsException {
+	public void liveCell(int x, int y) throws ArrayIndexOutOfBoundsException, CellNotInstantiatedException {
 		addAsset(x, y);
 		grid[y][x].setAlive(true);
 	}
@@ -186,7 +193,7 @@ public class CellGrid implements CellRepositoryControl {
 	}
 
 	@Override
-	public void setAlive(int x, int y, boolean alive) throws ArrayIndexOutOfBoundsException {
+	public void setAlive(int x, int y, boolean alive) throws ArrayIndexOutOfBoundsException, CellNotInstantiatedException {
 		if (alive) {
 			liveCell(x, y);
 		} else {

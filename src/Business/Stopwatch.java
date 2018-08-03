@@ -17,7 +17,7 @@ public class Stopwatch {
 	}
 	
 	/**
-	 * 
+	 * Executa as ações necessarias para o tempo correr
 	 */
 	private void run() {
 		ActionListener action = new ActionListener() {
@@ -34,37 +34,35 @@ public class Stopwatch {
 	}
 	
 	/**
-	 * 
+	 * Zera o tempo
 	 */
 	public void reset() {
 		current = 0;
 	}
 	
 	/**
-	 * 
-	 * @return
+	 * @return Status do tempo
 	 */
 	public boolean isPaused() {
 		return paused;
 	}
 	
 	/**
-	 * 
+	 * Retoma o tempo
 	 */
 	public void play() {
 		paused = false;
 	}
 	
 	/**
-	 * 
+	 * Pausa o tempo
 	 */
 	public void pause() {
 		paused = true;
 	}
 	
 	/**
-	 * 
-	 * @return
+	 * @return String com o tempo atual
 	 */
 	public String getTime() {
 		int hours = (int) (current/3600);

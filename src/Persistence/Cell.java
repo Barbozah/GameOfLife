@@ -8,9 +8,6 @@ import java.io.Serializable;
  */
 public class Cell implements Serializable{
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private boolean alive;
 	private int neighbors;
@@ -31,46 +28,44 @@ public class Cell implements Serializable{
 	}
 	
 	/**
-	 * 
-	 * @return
+	 * @return Se a célula está viva
 	 */
 	public boolean isAlive() {
 		return alive;
 	}
 	
 	/**
-	 * 
-	 * @param alive
+	 * Define o status de uma célula
+	 * @param alive Status da célula
 	 */
 	public void setAlive(boolean alive) {
 		this.alive = alive;
 	}
 	
 	/**
-	 * 
+	 * Incrementa em 1 o número de vizinhos da célula
 	 */
 	public void addNeighbor() {
 		neighbors++;
 	}
 	
 	/**
-	 * 
+	 * Decrementa em 1 o número de vizinhos da célula
 	 */
 	public void removeNeighbor() {
 		neighbors--;
 	}
 	
 	/**
-	 * 
-	 * @return
+	 * @return Número de vizinhos da célula
 	 */
 	public int getNeighbors() {
 		return neighbors;
 	}
 	
 	/**
-	 * 
-	 * @param neighbors
+	 * Define o número de vizinhos da célula
+	 * @param neighbors Número de vizinhos
 	 */
 	public void setNeighbors(int neighbors) {
 		this.neighbors = neighbors;
