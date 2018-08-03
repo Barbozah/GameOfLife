@@ -1,5 +1,8 @@
 package Business;
 
+import Persistence.CellRepositoryControl;
+import Persistence.CellNotInstantiatedException;
+
 /**
  * Interface que reúne os métodos para manipulação de uma simulação
  * @author Antonio
@@ -18,21 +21,18 @@ public interface SimulationControl {
 	 * @param behavior ( (viver/matar) uma célula)
 	 * @param x (coordenada x da célula)
 	 * @param y (coordenada y da célula)
-	 * @throws CellNotInstantiatedException
 	 */
-	public void mutation(boolean behavior, int x, int y) throws CellNotInstantiatedException;
+	public void mutation(int x, int y) throws CellNotInstantiatedException;
 	
 	/**
 	 * Atualiza uma célula em um buffer para a próxima geração
 	 * @param x (coordenada x da célula)
 	 * @param y (coordenada y da célula)
-	 * @throws CellNotInstantiatedException
 	 */
 	public void update(int x, int y) throws CellNotInstantiatedException;
 	
 	/**
 	 * Utiliza o updade() para atualizar todas as células para a próxima geração
-	 * @throws CellNotInstantiatedException
 	 */
 	public void selection() throws CellNotInstantiatedException;
 	
@@ -44,7 +44,7 @@ public interface SimulationControl {
 	
 	/**
 	 * Define o valor da taxa de atualização
-	 * @param velocity
+	 * @param velocity (long com o valor da taxa)
 	 */
 	public void setVelocity(long velocity);
 	
@@ -59,4 +59,43 @@ public interface SimulationControl {
 	 * @return (instância da classe Stopwatch)
 	 */
 	public Stopwatch getRuntime();
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public CellRepositoryControl getCellControl();
+	
+	/**
+	 * 
+	 * @param cellControl
+	 */
+	public void setCellControl(CellRepositoryControl cellControl);
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public boolean isPaused();
+	
+	/**
+	 * 
+	 */
+	public void pause();
+	
+	/**
+	 * 
+	 */
+	public void play();
+	
+	/**
+	 * 
+	 */
+	public boolean getCursorBehavior();
+	
+	/**
+	 * 
+	 * @param behavior
+	 */
+	public void setCursorBehavior(boolean behavior);
 }

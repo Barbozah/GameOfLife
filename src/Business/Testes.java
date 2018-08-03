@@ -1,13 +1,11 @@
 package Business;
 
-import Gui.MainFrame;
+import Gui.Main;
 
 public class Testes {
 
 	public static void main(String[] args) {
-		
-		new MainFrame();
-		
+		new Main();
 	}
 
 }

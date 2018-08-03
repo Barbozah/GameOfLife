@@ -4,34 +4,29 @@ package Business;
  * Classe responsável por abstrair os conceitos do usuário.
  * @author Antonio
  */
-public class Player {
-	static final boolean CURSOR_KILL = false;
-	static final boolean CURSOR_LIVE = true;
+public class Player implements PlayerControl {
 	
-	private boolean cursorBehavior;
-	private int score;
+	private static final long serialVersionUID = 1L;
+	private String name;
+	private String password;
 	
-	public Player() {
-		setCursorBehavior(CURSOR_LIVE);
-		setScore(0);
+	public Player(String name, String password) {
+		setName(name);
+		this.password = password;
 	}
-	
-	public Player(boolean cursorBehavior, int score) {
-		setCursorBehavior(cursorBehavior);
-		setScore(score);
+
+	@Override
+	public String getName() {
+		return name;
 	}
-	
-	public boolean getCursorBehavior() {
-		return cursorBehavior;
+
+	@Override
+	public void setName(String name) {
+		this.name = name;
 	}
-	public void setCursorBehavior(boolean cursorBehavior) {
-		this.cursorBehavior = cursorBehavior;
-	}
-	
-	public int getScore() {
-		return score;
-	}
-	public void setScore(int score) {
-		this.score = score;
+
+	@Override
+	public String getPassword() {
+		return password;
 	}
 }
